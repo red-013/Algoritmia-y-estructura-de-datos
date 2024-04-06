@@ -87,18 +87,13 @@ bool vencerEnemigo(Robot robots[], Ciudad &ciudad, int fila, int columna, int ac
     
     if(robots[actualRobot].direccion == 'D') {
         if(columna <= 8) {
-            if(ciudad.matriz[fila][columna + 1] == 50) {
-                ciudad.matriz[fila][columna + 1] = 1;
-                return true;
-            }
             if(ciudad.matriz[fila][columna + 1] == 0) {
-                ciudad.matriz[fila][columna + 1] = 1;
                 return vencerEnemigo(robots, ciudad, fila, columna + 1, actualRobot);
             }
             else {
                 if(robots[actualRobot].poder >= ciudad.matriz[fila][columna + 1]) {
                     robots[actualRobot].poder -= ciudad.matriz[fila][columna + 1];
-                    ciudad.matriz[fila][columna + 1] = 1;
+                    if(ciudad.matriz[fila][columna + 1] == 50) return true; //se encontro y vencio a superFly
                     return vencerEnemigo(robots, ciudad, fila, columna + 1, actualRobot);
                 }
                 else {
@@ -110,18 +105,13 @@ bool vencerEnemigo(Robot robots[], Ciudad &ciudad, int fila, int columna, int ac
     }
     else if(robots[actualRobot].direccion == 'A') {
         if(fila <= 8) {
-            if(ciudad.matriz[fila + 1][columna] == 50) {
-                ciudad.matriz[fila][columna + 1] = 1;
-                return true;
-            }
             if(ciudad.matriz[fila + 1][columna] == 0) {
-                ciudad.matriz[fila][columna + 1] = 1;
                 return vencerEnemigo(robots, ciudad, fila + 1, columna, actualRobot);
             }
             else {
                 if(robots[actualRobot].poder >= ciudad.matriz[fila + 1][columna]) {
                     robots[actualRobot].poder -= ciudad.matriz[fila + 1][columna];
-                    ciudad.matriz[fila][columna + 1] = 1;
+                    if(ciudad.matriz[fila+1][columna] == 50) return true; //se encontro y vencio a superFly
                     return vencerEnemigo(robots, ciudad, fila + 1, columna, actualRobot);
                 }
                 else {
@@ -143,19 +133,26 @@ int main() {
          {0, 27, 0, 0, 0, 0, 50, 0, 0, 0},
          {0, 0, 30, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 38, 0, 0, 42, 0, 0},
-         {15, 0, 0, 50, 0, 0, 0, 50, 0, 0},
+         {15, 0, 0, 0, 0, 0, 0, 50, 0, 0},
          {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
          {0, 0, 0, 0, 50, 0, 37, 0, 0, 0},
          {0, 18, 0, 17, 0, 0, 0, 0, 50, 0},
          {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}};
     leerPoderes(robots, 1);
     leerMovimientos(robots, 1);
-    // Comentar esto si no se desea leer la ciudad
+    // Usar si se desea leer la ciudad
     // leerCiudad(ciudad);
     if(vencerEnemigo(robots, ciudad, 0, 0, 0)) {
-        cout << "¡Las Tortuninjas lograron vencer a SuperFly!" << endl;
+        cout << "Las Tortuninjas lograron vencer a SuperFly!" << endl;
+    }
+    else{
+        cout << "Las Tortuninjas fracasaron" << endl;
     }
 
     return 0;
 }
 
+//                       ヤ
+//   ヤヤヤ  ヤヤヤ  ヤヤヤ
+//  ヤ     ヤヤ   ヤ   ヤ
+// ヤ    ヤヤヤ   ヤヤヤ
