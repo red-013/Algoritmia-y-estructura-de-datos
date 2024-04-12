@@ -34,7 +34,7 @@ int buscarSKYNERD(int servers[][nServers], int N, int fila, int columna) {
 
     // Si no se encontró SKYNERD en la fila actual, buscar en la siguiente fila
     if(ubicacion == -1 && fila < N - 1) {
-        ubicacion = buscarSKYNERD(servers, N, fila + 1, columna);
+        ubicacion = buscarSKYNERD(servers, N, fila + 1, columna + 1);
     }
 
     return ubicacion;
